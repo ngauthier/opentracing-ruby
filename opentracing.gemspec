@@ -20,9 +20,11 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'concurrent-ruby', '~> 1.0'
   spec.add_development_dependency "bundler", "~> 1.13"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "minitest", "~> 5.0"
   spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "simplecov-console"
   spec.add_development_dependency "codeclimate-test-reporter", "~> 1.0"
 end
