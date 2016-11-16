@@ -28,7 +28,80 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Everyday consumers of this `opentracing` gem really only need to worry
+about a couple of key abstractions: the `start_span` function, the `Span`
+interface, and binding a `Tracer` at runtime. Here are code snippets
+demonstrating some important use cases.
+
+### Singleton initialization
+
+As early as possible, call
+
+```ruby
+require 'opentracing'
+OpenTracing.global_tracer = MyTracerImplementation.New(...)
+```
+
+Where `MyTracerImplementation` is your tracer. For testing, you can use
+the provided `OpenTracing::NilTracer`
+
+### Non-Singleton initialization
+
+If you prefer direct control to singletons, manage ownership of the
+`Tracer` implementation explicitly.
+
+### Starting an empty trace by creating a "root span"
+
+It's always possible to create a "root" `Span` with no parent or other causal
+reference.
+
+```ruby
+span = OpenTracing.start_span("operation_name")
+span.finish
+```
+
+This example will start a span on the global tracer (initialized above). If
+you are managing your own tracer you'll need to call `start_span` on your
+tracer.
+
+### Creating a (child) Span given an existing (parent) Span
+
+```ruby
+span = OpenTracing.start_span("parent")
+child = OpenTracing.start_span("child", child_of: span)
+child.finish
+span.finish
+```
+
+### Serializing to the wire
+
+```ruby
+client = Net::HTTP.new("http://myservice")
+req = Net::HTTP::Post.new("/")
+
+span = OpenTracing.start_span("my_span")
+OpenTracing.inject(span.context, OpenTracing::FORMAT_HTTP_HEADER, req)
+res = client.request(req)
+#...
+```
+
+### Deserializing from the wire
+
+The OpenTracing Ruby gem provides a specific Rack header extraction format,
+since most Ruby web servers get their HTTP Headers from Rack. Keep in mind that
+Rack automatically uppercases all headers and replaces dashes with underscores.
+This means that if you use dashes and underscores and case-sensitive baggage,
+it will not be possible to discern once Rack has processed it.
+
+```ruby
+class MyRackApp
+  def call(env)
+    span = @tracer.extract("my_app", OpenTracing::FORMAT_RACK, env)
+    span.finish
+    [200, {}, ["hello"]]
+  end
+end
+```
 
 ## Development
 
