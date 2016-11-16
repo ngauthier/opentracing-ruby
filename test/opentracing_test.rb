@@ -2,7 +2,7 @@ require 'test_helper'
 
 class OpenTracingTest < Minitest::Test
   def test_micros
-    assert_equal 946702800000000, OpenTracing.micros(Time.parse("01/01/2000 00:00:00"))
+    assert_equal 946684800000000, OpenTracing.micros(Time.gm(2000))
   end
 
   def test_guid

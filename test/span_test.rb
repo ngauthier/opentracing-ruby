@@ -73,7 +73,7 @@ class SpanTest < Minitest::Test
 
   def test_double_finish
     first_time = Time.now
-    second_time = Time.parse("01/01/2000 00:00:00")
+    second_time = Time.gm(2000)
     span = span()
     span.finish(end_time: first_time)
     span.finish(end_time: second_time)
@@ -88,8 +88,8 @@ class SpanTest < Minitest::Test
   end
 
   def test_to_h
-    start_time = Time.parse("01/01/2000 00:00:00")
-    end_time = Time.parse("01/01/2000 00:00:05")
+    start_time = Time.gm(2000)
+    end_time = Time.gm(2001)
     span = span(tags: {key: :value}, start_micros: OpenTracing.micros(start_time))
     span.finish(end_time: end_time)
     assert_equal({
