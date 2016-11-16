@@ -10,4 +10,14 @@ class OpenTracingTest < Minitest::Test
     assert_equal 16, g.length
     assert_match /^[a-z0-9]+$/, g
   end
+
+  def test_global_tracer
+    assert_nil OpenTracing.global_tracer
+    tracer = Minitest::Mock.new
+    OpenTracing.global_tracer = tracer
+
+    span = Minitest::Mock.new
+    tracer.expect(:start_span, span, ["span"])
+    span = OpenTracing.start_span("span")
+  end
 end

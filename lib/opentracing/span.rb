@@ -91,6 +91,10 @@ module OpenTracing
     # @param timestamp [Time] time of the log
     # @param fields [Hash] Additional information to log
     def log(event: nil, timestamp: Time.now, **fields)
+      # TODO(ngauthier@gmail.com) this is part of the lightstep tracer that
+      # doesn't make sense in opentracing, but this is the only place we could
+      # check for enabled on a span, save for an alias method chain monkeypatch
+      # in the lightstep library
       return unless tracer.enabled?
 
       record = {

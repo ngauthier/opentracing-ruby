@@ -10,6 +10,9 @@ module OpenTracing
       GUID
     end
 
+    def start_span(operation_name, child_of: nil, start_time: nil, tags: nil)
+    end
+
     def finish_span(span)
     end
   end
