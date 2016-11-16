@@ -1,5 +1,7 @@
 # OpenTracing API for Ruby
 
+[![Build Status](https://travis-ci.org/ngauthier/opentracing-ruby.svg?branch=master)](https://travis-ci.org/ngauthier/opentracing-ruby) [![Code Climate](https://codeclimate.com/github/ngauthier/opentracing-ruby/badges/gpa.svg)](https://codeclimate.com/github/ngauthier/opentracing-ruby) [![Test Coverage](https://codeclimate.com/github/ngauthier/opentracing-ruby/badges/coverage.svg)](https://codeclimate.com/github/ngauthier/opentracing-ruby/coverage)
+
 This package is a Ruby platform API for OpenTracing.
 
 ## Required Reading
