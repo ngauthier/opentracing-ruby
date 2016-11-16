@@ -1,5 +1,7 @@
 module OpenTracing
   class NilTracer
+    GUID = "nil_tracer_guid"
+
     def enabled?
       true
     end
@@ -10,8 +12,5 @@ module OpenTracing
 
     def finish_span(span)
     end
-
-    private
-    GUID = "nil_tracer_guid"
   end
 end
