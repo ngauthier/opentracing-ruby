@@ -13,7 +13,7 @@ class OpenTracingTest < Minitest::Test
   end
 
   def test_inject_text_map
-    context = OpenTracing::SpanContext.new(id: "id", trace_id: "trace_id")
+    context = OpenTracing::SpanContext.new()
     carrier = {}
     OpenTracing.inject(context, OpenTracing::FORMAT_TEXT_MAP, carrier)
   end
@@ -23,7 +23,7 @@ class OpenTracingTest < Minitest::Test
   end
 
   def test_inject_rack
-    context = OpenTracing::SpanContext.new(id: "id", trace_id: "trace_id")
+    context = OpenTracing::SpanContext.new()
     OpenTracing.inject(context, OpenTracing::FORMAT_RACK, {})
   end
 

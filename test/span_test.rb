@@ -27,12 +27,6 @@ class SpanTest < Minitest::Test
   private
 
   def span
-    OpenTracing::Span.new(
-      tracer: Minitest::Mock.new,
-      context: OpenTracing::SpanContext.new(
-        id: nil,
-        trace_id: nil
-      )
-    )
+    OpenTracing::Span.new(tracer: Minitest::Mock.new, context: OpenTracing::SpanContext.new())
   end
 end

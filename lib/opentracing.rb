@@ -38,7 +38,7 @@ module OpenTracing
     def extract(operation_name, format, carrier, tracer)
       case format
       when OpenTracing::FORMAT_TEXT_MAP, OpenTracing::FORMAT_BINARY, OpenTracing::FORMAT_RACK
-        return SpanContext.new(id: nil, trace_id: nil)
+        return SpanContext.new()
       else
         warn 'Unknown extract format'
         nil
